@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { format } from 'date-fns';
 import SpendingPieChart from '@/components/SpendingPieChart';
 import SpendingBarChart from '@/components/SpendingBarChart';
+import { Transaction } from '@prisma/client';
 
 export default async function DashboardPage() {
   // =========================
@@ -17,7 +18,7 @@ export default async function DashboardPage() {
   // DATA CALCULATIONS
   // =========================
   const totalSpend = transactions
-    .filter(tx => tx.amount > 0)
+    .filter((tx: Transaction) => tx.amount > 0)
     .reduce((sum, tx) => sum + tx.amount, 0);
 
   const categories = [...new Set(transactions.map(tx => tx.category))];
