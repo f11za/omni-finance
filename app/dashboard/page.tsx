@@ -31,7 +31,7 @@ const transactions = await prisma.transaction.findMany({
 
   const chartData = Object.entries(categoryTotals).map(([name, value]) => ({
     name,
-    value,
+    value: value as number, // Force 'value' to be treated as a number
   }));
 
   // =========================
@@ -51,7 +51,10 @@ const transactions = await prisma.transaction.findMany({
   }, {});
 
   const barChartData = Object.entries(dailySpend)
-    .map(([date, amount]) => ({ date, amount }))
+    .map(([date, amount]) => ({ 
+      date, 
+      amount: amount as number // Force 'amount' to be a number
+    }))
     .reverse();
 
   return (
