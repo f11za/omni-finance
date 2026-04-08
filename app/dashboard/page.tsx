@@ -8,7 +8,7 @@ export default async function DashboardPage() {
   // =========================
   // DATA FETCHING
   // =========================
-  const transactions = await prisma.transaction.findMany({
+const transactions = await prisma.transaction.findMany({
     orderBy: { date: 'desc' },
   });
 
@@ -18,12 +18,12 @@ export default async function DashboardPage() {
   // DATA CALCULATIONS
   // =========================
   const totalSpend = transactions
-    .filter((tx: Transaction) => tx.amount > 0)
-    .reduce((sum, tx) => sum + tx.amount, 0);
+    .filter((tx: any) => tx.amount > 0)
+    .reduce((sum: number, tx: any) => sum + tx.amount, 0);
 
-  const categories = [...new Set(transactions.map(tx => tx.category))];
+  const categories = [...new Set(transactions.map((tx: any) => tx.category))];
 
-  const categoryTotals = transactions.reduce((acc: Record<string, number>, tx) => {
+  const categoryTotals = transactions.reduce((acc: Record<string, number>, tx: any) => {
     if (tx.amount > 0) {
       acc[tx.category] = (acc[tx.category] || 0) + tx.amount;
     }
@@ -38,12 +38,12 @@ export default async function DashboardPage() {
   // =========================
   // TOP CATEGORY 
   // =========================
-  const topCategory = chartData.sort((a, b) => b.value - a.value)[0];
+  const topCategory = chartData.sort((a, b) => (b.value as number) - (a.value as number))[0];
 
   // =========================
   // DAILY SPENDING (BAR CHART)
   // =========================
-  const dailySpend = transactions.reduce((acc: Record<string, number>, tx) => {
+  const dailySpend = transactions.reduce((acc: Record<string, number>, tx: any) => {
     if (tx.amount > 0) {
       const dateKey = format(new Date(tx.date), 'MMM dd');
       acc[dateKey] = (acc[dateKey] || 0) + tx.amount;
