@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import PlaidLink from '@/components/PlaidLink';
 
+
+export const dynamic = 'force-dynamic';
 export default async function Home() {
   // 1. Check if ANY account exists in the database
   const existingAccount = await prisma.account.findFirst();
