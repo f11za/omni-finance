@@ -2,7 +2,6 @@ import { prisma } from '@/lib/prisma';
 import { format } from 'date-fns';
 import SpendingPieChart from '@/components/SpendingPieChart';
 import SpendingBarChart from '@/components/SpendingBarChart';
-import { Transaction } from '@prisma/client';
 
 export default async function DashboardPage() {
   // =========================
