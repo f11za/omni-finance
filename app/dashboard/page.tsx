@@ -89,7 +89,7 @@ const transactions = await prisma.transaction.findMany({
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-medium text-indigo-300">$</span>
             <h2 className="text-6xl font-black">
-              {account?.balance?.toLocaleString() ?? '0'}
+              {Number(account?.balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </h2>
           </div>
         </div>
@@ -109,8 +109,11 @@ const transactions = await prisma.transaction.findMany({
             {topCategory?.name ?? 'N/A'}
           </h3>
           <p className="text-sm text-slate-500 mt-1">
-            ${topCategory?.value?.toLocaleString(undefined, { minimumFractionDigits: 2 }) ?? '0.00'}
-          </p>
+  ${Number(topCategory?.value || 0).toLocaleString(undefined, { 
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2 
+  }) ?? '0.00'}
+</p>
         </div>
 
         <div className="text-indigo-600 text-3xl font-black">
