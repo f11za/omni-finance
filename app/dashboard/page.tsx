@@ -168,7 +168,7 @@ const transactions = await prisma.transaction.findMany({
             </thead>
 
             <tbody className="divide-y divide-slate-100">
-              {transactions.map((tx) => (
+              {transactions.map((tx: any) => (
                 <tr key={tx.id} className="hover:bg-slate-50/50 transition-colors group">
                   <td className="px-6 py-5">
                     <div className="font-bold text-slate-700">
